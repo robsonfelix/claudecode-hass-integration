@@ -114,6 +114,25 @@ If you're new to tmux:
 | `Ctrl+b [` | Enter scroll mode (use arrow keys) |
 | `q` | Exit scroll mode |
 
+### Scrolling and Session Persistence Trade-offs
+
+**With tmux (`session_persistence: true`):**
+- ✅ Session survives browser refresh/disconnect
+- ✅ Can detach and reattach to running sessions
+- ✅ Long-running Claude tasks continue in background
+- ❌ Mouse wheel scrolling doesn't work
+- ❌ Must use `Ctrl+b [` then arrow keys to scroll
+
+**Without tmux (`session_persistence: false`):**
+- ✅ Mouse wheel scrolling may work (browser-native)
+- ✅ Simpler terminal behavior
+- ❌ Session lost on browser refresh
+- ❌ Session lost if add-on restarts
+
+**Recommendation:**
+- Use `session_persistence: true` (default) if you run long tasks or need to survive disconnects
+- Use `session_persistence: false` if scrolling through output history is more important to you
+
 ## Security
 
 ### Authentication

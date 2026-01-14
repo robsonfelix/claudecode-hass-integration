@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 ### Reverted
 - Removed tmux mouse mode (breaks paste functionality)
 
+### Documentation
+- Added section explaining scrolling and session persistence trade-offs
+
 ## [1.2.20] - 2026-01-14
 
 ### Fixed
