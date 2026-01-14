@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.33] - 2026-01-14
+
+### Added
+- Brazilian Portuguese translation (pt-BR)
+- Spanish translation (es)
+
 ## [1.2.32] - 2026-01-14
 
 ### Fixed

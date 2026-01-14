@@ -1,0 +1,31 @@
+configuration:
+  enable_mcp:
+    name: Habilitar MCP de Home Assistant
+    description: >-
+      Habilita el servidor MCP de Home Assistant para interacción directa con
+      entidades y servicios desde Claude Code. Permite que Claude consulte
+      estados, llame servicios e interactúe con tu hogar inteligente.
+  terminal_font_size:
+    name: Tamaño de Fuente del Terminal
+    description: >-
+      Tamaño de fuente del terminal web en píxeles (10-24).
+      Ajusta para mejor legibilidad en tu pantalla.
+  terminal_theme:
+    name: Tema del Terminal
+    description: >-
+      Tema de colores del terminal web.
+      Elige 'dark' para fondo oscuro o 'light' para fondo claro.
+  working_directory:
+    name: Directorio de Trabajo
+    description: >-
+      El directorio predeterminado cuando Claude Code inicia.
+      Usa /homeassistant para acceso directo a los archivos de configuración de HA.
+  session_persistence:
+    name: Persistencia de Sesión
+    description: >-
+      Habilita persistencia de sesión via tmux. Cuando está habilitado, tu sesión
+      del terminal sobrevive a actualizaciones del navegador y desconexiones.
+      Recomendado para tareas de larga duración.
+
+network:
+  7681/tcp: Terminal Web (ttyd)
