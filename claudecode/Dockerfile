@@ -5,7 +5,7 @@ FROM ${BUILD_FROM}
 LABEL maintainer="Robson Felix"
 LABEL org.opencontainers.image.title="Claude Code for Home Assistant"
 LABEL org.opencontainers.image.description="Claude Code CLI with web terminal and HA integration"
-LABEL org.opencontainers.image.source="https://github.com/robsonfelix/claudecode-hass-integration"
+LABEL org.opencontainers.image.source="https://github.com/robsonfelix/robsonfelix-hass-addons"
 LABEL org.opencontainers.image.licenses="MIT"
 
 # Environment setup

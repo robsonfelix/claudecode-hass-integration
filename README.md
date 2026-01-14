@@ -18,7 +18,7 @@ Run Claude Code, Anthropic's AI coding assistant, directly inside Home Assistant
    Or manually:
    - Go to **Settings** > **Add-ons** > **Add-on Store**
    - Click the menu (three dots) > **Repositories**
-   - Add: `https://github.com/robsonfelix/claudecode-hass-integration`
+   - Add: `https://github.com/robsonfelix/robsonfelix-hass-addons`
 
 2. Install the "Claude Code" add-on
 
@@ -47,8 +47,8 @@ See [DOCS.md](claudecode/DOCS.md) for full documentation.
 
 ## Support
 
-- [Report Issues](https://github.com/robsonfelix/claudecode-hass-integration/issues)
-- [Discussions](https://github.com/robsonfelix/claudecode-hass-integration/discussions)
+- [Report Issues](https://github.com/robsonfelix/robsonfelix-hass-addons/issues)
+- [Discussions](https://github.com/robsonfelix/robsonfelix-hass-addons/discussions)
 
 ## License
 

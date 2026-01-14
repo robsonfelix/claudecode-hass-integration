@@ -161,5 +161,5 @@ After changing configuration:
 
 ## Support
 
-- [GitHub Issues](https://github.com/robsonfelix/claudecode-hass-integration/issues)
+- [GitHub Issues](https://github.com/robsonfelix/robsonfelix-hass-addons/issues)
 - [Home Assistant Community](https://community.home-assistant.io/)
