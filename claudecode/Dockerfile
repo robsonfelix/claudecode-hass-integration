@@ -46,7 +46,7 @@ RUN apk add --no-cache \
 # Install Claude Code via npm
 RUN npm install -g @anthropic-ai/claude-code
 
-# Install hass-mcp for Home Assistant integration
+# Install hass-mcp for Home Assistant integration (requires Python 3.13+)
 RUN pip3 install --no-cache-dir --break-system-packages hass-mcp
 
 # Create necessary directories
