@@ -14,7 +14,7 @@ ENV \
     LC_ALL=C.UTF-8 \
     TERM=xterm-256color
 
-# Install system dependencies including ttyd from Alpine packages
+# Install system dependencies (ttyd installed separately as static binary)
 RUN apk add --no-cache \
     bash \
     curl \
@@ -36,8 +36,19 @@ RUN apk add --no-cache \
     ca-certificates \
     openssl \
     ripgrep \
-    ttyd \
     && update-ca-certificates
+
+# Install ttyd static binary (avoids libwebsockets issues)
+ARG BUILD_ARCH
+RUN case "${BUILD_ARCH}" in \
+        amd64) TTYD_ARCH="x86_64" ;; \
+        aarch64) TTYD_ARCH="aarch64" ;; \
+        armv7|armhf) TTYD_ARCH="armhf" ;; \
+        i386) TTYD_ARCH="i686" ;; \
+        *) TTYD_ARCH="x86_64" ;; \
+    esac && \
+    curl -fsSL "https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.${TTYD_ARCH}" -o /usr/bin/ttyd && \
+    chmod +x /usr/bin/ttyd
 
 # Install Claude Code via npm
 RUN npm install -g @anthropic-ai/claude-code
