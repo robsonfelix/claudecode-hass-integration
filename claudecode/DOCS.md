@@ -1,139 +1,171 @@
 # Claude Code for Home Assistant
 
-This add-on allows you to run Claude Code, Anthropic's AI coding assistant, directly inside Home Assistant. Use it to create automations, debug configurations, and manage your smart home with natural language.
+This add-on provides Claude Code, Anthropic's AI-powered coding assistant, directly in your Home Assistant sidebar with full access to your configuration.
 
-## Prerequisites
+## Features
 
-- An Anthropic API key (get one at https://console.anthropic.com/)
-- Home Assistant with Supervisor (Home Assistant OS or Supervised installation)
+- **Web Terminal**: Access Claude Code through a browser-based terminal
+- **Config Access**: Read and write Home Assistant configuration files
+- **hass-mcp Integration**: Direct control of HA entities and services
+- **Session Persistence**: Optional tmux integration to preserve sessions across page refreshes
+- **Customizable Theme**: Choose between dark and light terminal themes
+- **Multi-Architecture**: Supports amd64, aarch64, armv7, armhf, and i386
 
-## Installation
+## Setup
 
-1. Add this repository to your Home Assistant add-on store:
-   - Go to **Settings** > **Add-ons** > **Add-on Store**
-   - Click the three dots in the top right corner
-   - Select **Repositories**
-   - Add: `https://github.com/robsonfelix/claudecode-hass-integration`
+### 1. Get an Anthropic API Key
 
-2. Find "Claude Code" in the add-on store and click **Install**
+1. Visit [Anthropic Console](https://console.anthropic.com/)
+2. Create an account or sign in
+3. Generate an API key
+4. Copy the key for the next step
 
-3. Configure your Anthropic API key in the add-on configuration
+### 2. Configure the Add-on
 
-4. Start the add-on
+1. Go to **Settings** > **Add-ons** > **Claude Code**
+2. Click the **Configuration** tab
+3. Enter your Anthropic API key
+4. Adjust other settings as needed
+5. Click **Save**
 
-5. Click **Open Web UI** or find "Claude Code" in your sidebar
+### 3. Start the Add-on
 
-## Configuration
+1. Click **Start**
+2. Wait for the add-on to initialize
+3. Click **Open Web UI** or access via the sidebar
 
-### Options
+## Using Claude Code
+
+### Basic Usage
+
+Once started, you'll see a terminal interface. Claude Code is ready to help with:
+
+- Editing Home Assistant YAML configurations
+- Creating automations and scripts
+- Debugging configuration issues
+- Writing custom integrations
+
+### Home Assistant Integration
+
+With hass-mcp enabled, Claude can:
+
+- Query entity states: "What's the temperature in the living room?"
+- Control devices: "Turn off all lights in the bedroom"
+- List services: "What services are available for climate control?"
+- Debug automations: "Why didn't my morning routine trigger?"
+
+### Example Commands
+
+```bash
+# Start interactive session
+claude
+
+# One-off commands
+claude "Add a new automation that turns on the porch light at sunset"
+claude "Check my configuration.yaml for errors"
+claude "List all unavailable entities"
+
+# Continue previous conversation
+claude --continue
+```
+
+### Keyboard Shortcuts
+
+| Shortcut | Command |
+|----------|---------|
+| `c` | `claude` |
+| `cc` | `claude --continue` |
+| `ha-config` | Navigate to config directory |
+| `ha-logs` | View Home Assistant logs |
+
+## Configuration Options
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| `anthropic_api_key` | Your Anthropic API key (required) | `""` |
-| `enable_mcp` | Enable Home Assistant MCP integration | `true` |
-| `working_directory` | Default working directory | `/homeassistant` |
+| `anthropic_api_key` | Your Anthropic API key | (empty) |
+| `model` | Claude model to use | claude-sonnet-4-20250514 |
+| `enable_mcp` | Enable HA integration | true |
+| `terminal_font_size` | Font size (10-24) | 14 |
+| `terminal_theme` | dark or light | dark |
+| `working_directory` | Start directory | /homeassistant |
+| `session_persistence` | Use tmux for persistent sessions | true |
 
-### API Key
+### Model Options
 
-You must provide a valid Anthropic API key. Get one from https://console.anthropic.com/
+You can use different Claude models by changing the `model` setting:
 
-1. Create an account or sign in
-2. Navigate to API Keys
-3. Create a new API key
-4. Copy and paste it into the add-on configuration
+- `claude-sonnet-4-20250514` (default) - Fast and capable
+- `claude-opus-4-20250514` - Most capable, best for complex tasks
+- `claude-haiku-3-5-20241022` - Fastest, good for simple tasks
 
-## Usage
+## File Locations
 
-### Interactive Mode
+| Path | Description | Access |
+|------|-------------|--------|
+| `/homeassistant` | HA configuration directory | read-write |
+| `/share` | Shared folder | read-write |
+| `/media` | Media folder | read-write |
+| `/ssl` | SSL certificates | read-only |
+| `/backup` | Backups | read-only |
 
-Open the web UI and type `claude` to start an interactive Claude Code session:
+## Session Persistence
 
-```bash
-claude
-```
+When `session_persistence` is enabled, the add-on uses tmux to maintain your terminal session. This means:
 
-### One-off Commands
+- Your session survives browser refreshes
+- You can disconnect and reconnect without losing context
+- Claude Code conversations are preserved
 
-Run specific prompts directly:
+### tmux Commands
 
-```bash
-claude "List all my automations"
-claude "Create an automation that turns on the porch light when motion is detected"
-claude "Fix the syntax error in my configuration.yaml"
-```
+If you're new to tmux:
 
-### Example Tasks
-
-**Creating Automations:**
-```bash
-claude "Create an automation that:
-- Triggers at sunset
-- Turns on the living room lights
-- Only on weekdays"
-```
-
-**Debugging:**
-```bash
-claude "Check my configuration.yaml for errors"
-claude "Why isn't my automation working? Check automations.yaml"
-```
-
-**Understanding Your Setup:**
-```bash
-claude "Explain how my heating automation works"
-claude "List all devices in the kitchen"
-```
-
-## MCP Integration
-
-When `enable_mcp` is enabled, Claude Code can directly interact with Home Assistant:
-
-- **List entities**: Query all your devices, sensors, and entities
-- **Call services**: Turn on lights, trigger scenes, etc.
-- **View history**: Check entity state history
-- **Get states**: See current state of any entity
-
-This allows Claude to not just edit files, but actually understand and interact with your live Home Assistant instance.
-
-## File Access
-
-The add-on has read-write access to:
-
-- `/homeassistant` - Your main configuration directory
-- `/share` - Shared storage between add-ons
-- `/ssl` - SSL certificates (read-only)
-
-## Troubleshooting
-
-### "API key not configured"
-
-Make sure you've entered your Anthropic API key in the add-on configuration and restarted the add-on.
-
-### Terminal not loading
-
-1. Check the add-on logs for errors
-2. Try restarting the add-on
-3. Clear your browser cache
-
-### Claude commands not working
-
-1. Verify your API key is valid
-2. Check you have sufficient API credits
-3. Look at the add-on logs for error messages
-
-### MCP not connecting to Home Assistant
-
-1. Ensure `enable_mcp` is set to `true`
-2. Restart the add-on after changing configuration
-3. Check logs for MCP-related errors
+| Key | Action |
+|-----|--------|
+| `Ctrl+b d` | Detach from session (keeps it running) |
+| `Ctrl+b [` | Enter scroll mode (use arrow keys) |
+| `q` | Exit scroll mode |
 
 ## Security Notes
 
-- Your API key is stored securely in Home Assistant's add-on configuration
+- Your API key is stored securely in Home Assistant's encrypted add-on configuration
+- The Supervisor token is automatically managed and not exposed
+- File access is limited to mapped directories
 - The add-on runs in an isolated container
-- Network access is limited to what's necessary for Claude Code operation
+
+## Troubleshooting
+
+### "API key not configured" warning
+
+Either:
+1. Enter your API key in the add-on configuration, or
+2. Authenticate interactively when Claude Code prompts you
+
+### hass-mcp not working
+
+1. Verify `enable_mcp` is true in configuration
+2. Check add-on logs for connection errors
+3. Restart the add-on after configuration changes
+
+### Terminal not loading
+
+1. Check that the add-on is running (green indicator)
+2. Try refreshing the page
+3. Check browser console for errors
+4. Review add-on logs for ttyd errors
+
+### Session not persisting
+
+1. Ensure `session_persistence` is set to true
+2. The session is named "claude" - it will auto-attach on reconnect
+
+### Configuration changes not applying
+
+After changing configuration:
+1. Save the configuration
+2. Restart the add-on completely
 
 ## Support
 
-For issues and feature requests, visit:
-https://github.com/robsonfelix/claudecode-hass-integration/issues
+- [GitHub Issues](https://github.com/robsonfelix/claudecode-hass-integration/issues)
+- [Home Assistant Community](https://community.home-assistant.io/)

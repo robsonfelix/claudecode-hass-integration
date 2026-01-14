@@ -1,10 +1,41 @@
 configuration:
   anthropic_api_key:
     name: Anthropic API Key
-    description: Your Anthropic API key for Claude Code authentication. Get one at https://console.anthropic.com/
+    description: >-
+      Your Anthropic API key for Claude Code authentication.
+      Get one at https://console.anthropic.com/
+      Leave empty to authenticate interactively on first use.
+  model:
+    name: Claude Model
+    description: >-
+      The Claude model to use. Options include claude-sonnet-4-20250514 (default, fast),
+      claude-opus-4-20250514 (most capable), or claude-haiku-3-5-20241022 (fastest).
   enable_mcp:
-    name: Enable MCP Integration
-    description: Enable Home Assistant MCP server for direct entity and service access from Claude Code.
+    name: Enable Home Assistant MCP
+    description: >-
+      Enable the Home Assistant MCP server for direct entity and service
+      interaction from Claude Code. Allows Claude to query states, call services,
+      and interact with your smart home.
+  terminal_font_size:
+    name: Terminal Font Size
+    description: >-
+      Font size for the web terminal in pixels (10-24).
+      Adjust for readability on your display.
+  terminal_theme:
+    name: Terminal Theme
+    description: >-
+      Color theme for the web terminal.
+      Choose 'dark' for dark backgrounds or 'light' for light backgrounds.
   working_directory:
     name: Working Directory
-    description: The default working directory when Claude Code starts.
+    description: >-
+      The default working directory when Claude Code starts.
+      Use /homeassistant for direct access to HA configuration files.
+  session_persistence:
+    name: Session Persistence
+    description: >-
+      Enable tmux session persistence. When enabled, your terminal session
+      survives browser refreshes and disconnects. Recommended for long-running tasks.
+
+network:
+  7681/tcp: Web Terminal (ttyd)

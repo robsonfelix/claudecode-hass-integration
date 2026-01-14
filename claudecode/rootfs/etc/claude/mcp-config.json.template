@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "homeassistant": {
+      "command": "hass-mcp",
+      "env": {
+        "HASS_TOKEN": "${HASS_TOKEN}",
+        "HASS_HOST": "${HASS_HOST}"
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+
+# Read configuration
+ANTHROPIC_API_KEY=$(bashio::config 'anthropic_api_key')
+MODEL=$(bashio::config 'model')
+TERMINAL_FONT_SIZE=$(bashio::config 'terminal_font_size')
+TERMINAL_THEME=$(bashio::config 'terminal_theme')
+WORKING_DIR=$(bashio::config 'working_directory')
+SESSION_PERSISTENCE=$(bashio::config 'session_persistence')
+
+# Export environment
+export ANTHROPIC_API_KEY="${ANTHROPIC_API_KEY}"
+export CLAUDE_MODEL="${MODEL}"
+export HOME=/root
+export TERM=xterm-256color
+
+# Get ingress entry
+INGRESS_ENTRY=$(bashio::addon.ingress_entry)
+
+# Set theme
+if [[ "${TERMINAL_THEME}" == "dark" ]]; then
+    TTYD_THEME="background=#1e1e2e,foreground=#cdd6f4,cursor=#f5e0dc"
+else
+    TTYD_THEME="background=#eff1f5,foreground=#4c4f69,cursor=#dc8a78"
+fi
+
+# Determine shell command
+if bashio::var.true "${SESSION_PERSISTENCE}"; then
+    SHELL_CMD="tmux new-session -A -s claude"
+else
+    SHELL_CMD="bash --login"
+fi
+
+cd "${WORKING_DIR}" 2>/dev/null || cd /homeassistant
+
+exec ttyd \
+    --port 7681 \
+    --writable \
+    --base-path "${INGRESS_ENTRY}" \
+    --ping-interval 30 \
+    --max-clients 5 \
+    -t "fontSize=${TERMINAL_FONT_SIZE}" \
+    -t "fontFamily=Monaco,Consolas,monospace" \
+    -t "theme=${TTYD_THEME}" \
+    ${SHELL_CMD}
