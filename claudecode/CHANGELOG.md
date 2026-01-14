@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.14] - 2026-01-14
+
+### Fixed
+- Add /etc/** read permissions to AppArmor profile
+- Fixes "bash: /etc/profile: Permission denied" error
+
 ## [1.2.13] - 2026-01-14
 
 ### Fixed

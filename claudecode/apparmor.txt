@@ -74,6 +74,12 @@ profile claudecode flags=(attach_disconnected,mediate_deleted) {
   /proc/*/net/** r,
   /sys/kernel/** r,
 
+  # System config read access
+  /etc/** r,
+  /etc/profile r,
+  /etc/bash/** r,
+  /etc/terminfo/** r,
+
   # Deny write access to system paths
   deny /bin/** w,
   deny /usr/bin/** w,
