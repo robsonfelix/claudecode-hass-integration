@@ -99,7 +99,7 @@ CMD ["/bin/bash", "-c", "\
   ENABLE_MCP=$(jq -r '.enable_mcp // true' /data/options.json) && \
   claude mcp remove homeassistant 2>/dev/null || true && \
   if [ \"$ENABLE_MCP\" = \"true\" ]; then \
-    claude mcp add-json homeassistant '{\"command\":\"hass-mcp\",\"env\":{\"HASS_TOKEN\":\"'\"$SUPERVISOR_TOKEN\"'\",\"HASS_HOST\":\"http://supervisor/core\"}}' && \
+    claude mcp add-json homeassistant '{\"command\":\"hass-mcp\",\"env\":{\"HA_TOKEN\":\"'\"$SUPERVISOR_TOKEN\"'\",\"HA_HOST\":\"http://supervisor/core\"}}' && \
     echo '[INFO] MCP configured with Home Assistant integration'; \
   else \
     echo '[INFO] MCP disabled'; \
