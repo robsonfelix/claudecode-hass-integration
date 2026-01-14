@@ -47,7 +47,7 @@ RUN apk add --no-cache \
 RUN npm install -g @anthropic-ai/claude-code
 
 # Install hass-mcp for Home Assistant integration
-RUN pip3 install --no-cache-dir --break-system-packages homeassistant-mcp
+RUN pip3 install --no-cache-dir --break-system-packages hass-mcp
 
 # Create necessary directories
 RUN mkdir -p \
