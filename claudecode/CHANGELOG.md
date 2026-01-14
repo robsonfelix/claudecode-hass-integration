@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.35] - 2026-01-14
+
+### Added
+- Symlink `/config` → `/homeassistant` for HA path compatibility
+
 ## [1.2.34] - 2026-01-14
 
 ### Added

@@ -62,6 +62,9 @@ RUN mkdir -p \
     /root/.config \
     /root/.local/bin
 
+# Create /config alias for /homeassistant (common HA path convention)
+RUN ln -s /homeassistant /config
+
 # Configure tmux with large scrollback buffer and scroll support
 RUN cat > /root/.tmux.conf << 'EOF'
 set -g history-limit 20000
