@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.28] - 2026-01-14
+
+### Changed
+- Export HA_TOKEN/HA_HOST as environment variables instead of baking into MCP config
+- hass-mcp now reads token from inherited environment (cleaner approach)
+
 ## [1.2.27] - 2026-01-14
 
 ### Fixed

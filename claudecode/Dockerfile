@@ -88,6 +88,8 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
 # Use /homeassistant/.claudecode which is always persistent
 ENTRYPOINT []
 CMD ["/bin/bash", "-c", "\
+  export HA_TOKEN=\"$SUPERVISOR_TOKEN\" && \
+  export HA_HOST=\"http://supervisor/core\" && \
   PERSIST_DIR=/homeassistant/.claudecode && \
   mkdir -p $PERSIST_DIR/config /root/.config && \
   if [ ! -L /root/.claude ]; then rm -rf /root/.claude; ln -s $PERSIST_DIR /root/.claude; fi && \
@@ -99,7 +101,7 @@ CMD ["/bin/bash", "-c", "\
   ENABLE_MCP=$(jq -r '.enable_mcp // true' /data/options.json) && \
   claude mcp remove homeassistant 2>/dev/null || true && \
   if [ \"$ENABLE_MCP\" = \"true\" ]; then \
-    claude mcp add-json homeassistant '{\"command\":\"hass-mcp\",\"env\":{\"HA_TOKEN\":\"'\"$SUPERVISOR_TOKEN\"'\",\"HA_HOST\":\"http://supervisor/core\"}}' && \
+    claude mcp add-json homeassistant '{\"command\":\"hass-mcp\"}' && \
     echo '[INFO] MCP configured with Home Assistant integration'; \
   else \
     echo '[INFO] MCP disabled'; \
