@@ -43,7 +43,7 @@ RUN apk add --no-cache \
 RUN npm install -g @anthropic-ai/claude-code
 
 # Install hass-mcp for Home Assistant integration
-RUN pip install --no-cache-dir hass-mcp
+RUN pip3 install --no-cache-dir --break-system-packages hass-mcp
 
 # Create necessary directories
 RUN mkdir -p \
@@ -56,10 +56,12 @@ RUN mkdir -p \
 # Set up PATH
 ENV PATH="/root/.local/bin:${PATH}"
 
-# Copy run script and ensure it's executable with correct line endings
-COPY run.sh /run.sh
-RUN chmod 755 /run.sh && \
-    sed -i 's/\r$//' /run.sh
+# Copy s6-overlay service files
+COPY rootfs /
+
+# Fix line endings and permissions for s6 scripts
+RUN find /etc/s6-overlay -type f -exec sed -i 's/\r$//' {} \; && \
+    chmod +x /etc/s6-overlay/s6-rc.d/ttyd/run
 
 # Set working directory
 WORKDIR /homeassistant
@@ -67,5 +69,3 @@ WORKDIR /homeassistant
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
     CMD curl -sf http://localhost:7681/ || exit 1
-
-CMD ["/run.sh"]
