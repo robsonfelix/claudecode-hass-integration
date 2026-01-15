@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.53] - 2026-01-15
+
+### Added
+- Auto-detect Playwright Browser hostname using Supervisor API
+- No need to manually configure `playwright_cdp_host` anymore
+- Finds any add-on with slug ending in `playwright-browser`
+
 ## [1.2.52] - 2026-01-15
 
 ### Fixed

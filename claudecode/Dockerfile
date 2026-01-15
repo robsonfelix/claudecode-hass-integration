@@ -191,7 +191,16 @@ CMD ["/bin/bash", "-c", "\
   ENABLE_MCP=$(jq -r '.enable_mcp // true' /data/options.json) && \
   ENABLE_PLAYWRIGHT=$(jq -r '.enable_playwright_mcp // false' /data/options.json) && \
   PLAYWRIGHT_HOST=$(jq -r '.playwright_cdp_host // \"\"' /data/options.json) && \
-  if [ -z \"$PLAYWRIGHT_HOST\" ]; then PLAYWRIGHT_HOST=\"playwright-browser\"; fi && \
+  if [ -z \"$PLAYWRIGHT_HOST\" ] && [ \"$ENABLE_PLAYWRIGHT\" = \"true\" ]; then \
+    echo '[INFO] Auto-detecting Playwright Browser hostname...' && \
+    PLAYWRIGHT_HOST=$(curl -s -H \"Authorization: Bearer $SUPERVISOR_TOKEN\" http://supervisor/addons | jq -r '.data.addons[] | select(.slug | endswith(\"playwright-browser\") or endswith(\"_playwright-browser\")) | .hostname' | head -1) && \
+    if [ -n \"$PLAYWRIGHT_HOST\" ] && [ \"$PLAYWRIGHT_HOST\" != \"null\" ]; then \
+      echo \"[INFO] Found Playwright Browser: $PLAYWRIGHT_HOST\"; \
+    else \
+      echo '[WARN] Playwright Browser add-on not found, using default hostname'; \
+      PLAYWRIGHT_HOST=\"playwright-browser\"; \
+    fi; \
+  fi && \
   AUTO_UPDATE=$(jq -r '.auto_update_claude // true' /data/options.json) && \
   if [ \"$AUTO_UPDATE\" = \"true\" ]; then \
     echo '[INFO] Checking for Claude Code updates...' && \
