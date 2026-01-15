@@ -208,10 +208,10 @@ CMD ["/bin/bash", "-c", "\
     echo '[INFO] Checking for Claude Code updates...' && \
     npm update -g @anthropic-ai/claude-code 2>/dev/null || echo '[WARN] Update check failed, continuing...'; \
   fi && \
-  claude mcp remove homeassistant 2>/dev/null || true && \
-  claude mcp remove playwright 2>/dev/null || true && \
+  claude mcp remove homeassistant -s user 2>/dev/null || true && \
+  claude mcp remove playwright -s user 2>/dev/null || true && \
   if [ \"$ENABLE_MCP\" = \"true\" ]; then \
-    claude mcp add-json homeassistant '{\"command\":\"hass-mcp\"}' && \
+    claude mcp add-json homeassistant '{\"command\":\"hass-mcp\"}' -s user && \
     SETTINGS_FILE=/root/.claude/settings.json && \
     ALLOWED_TOOLS='[\"mcp__homeassistant__get_version\",\"mcp__homeassistant__get_entity\",\"mcp__homeassistant__list_entities\",\"mcp__homeassistant__search_entities_tool\",\"mcp__homeassistant__domain_summary_tool\",\"mcp__homeassistant__list_automations\",\"mcp__homeassistant__get_history\",\"mcp__homeassistant__get_error_log\",\"Read(/homeassistant/**)\",\"Read(/config/**)\",\"Read(/share/**)\",\"Read(/media/**)\",\"Glob(/homeassistant/**)\",\"Glob(/config/**)\",\"Grep(/homeassistant/**)\",\"Grep(/config/**)\"]' && \
     jq --argjson tools \"$ALLOWED_TOOLS\" '.permissions.allow = ($tools + (.permissions.allow // []) | unique)' $SETTINGS_FILE > /tmp/settings.tmp && mv /tmp/settings.tmp $SETTINGS_FILE && \
@@ -221,7 +221,7 @@ CMD ["/bin/bash", "-c", "\
     echo '[INFO] MCP disabled'; \
   fi && \
   if [ \"$ENABLE_PLAYWRIGHT\" = \"true\" ]; then \
-    claude mcp add-json playwright '{\"command\":\"npx\",\"args\":[\"-y\",\"@playwright/mcp\",\"--headless\",\"--browser\",\"chromium\"],\"env\":{\"PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH\":\"/usr/bin/chromium-browser\"}}' && \
+    claude mcp add-json playwright '{\"command\":\"npx\",\"args\":[\"-y\",\"@playwright/mcp\",\"--headless\",\"--browser\",\"chromium\"],\"env\":{\"PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH\":\"/usr/bin/chromium-browser\"}}' -s user && \
     echo '[INFO] Playwright MCP enabled (headless Chromium)'; \
   else \
     echo '[INFO] Playwright MCP disabled'; \

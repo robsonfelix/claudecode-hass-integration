@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.45] - 2026-01-15
+
+### Fixed
+- MCP servers now configured at user scope (`-s user`) instead of project scope
+- MCPs are now globally available regardless of working directory
+
 ## [1.2.44] - 2026-01-14
 
 ### Added
