@@ -13,12 +13,10 @@ RUN apk add --no-cache \
     bash \
     curl \
     jq \
-    python3 \
-    py3-pip \
-    py3-requests \
     openjdk11-jre-headless \
     ca-certificates \
-    && update-ca-certificates
+    && update-ca-certificates \
+    && pip3 install --no-cache-dir requests
 
 # Download Monocle Gateway v0.0.6
 ARG BUILD_ARCH

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2026-01-14
+
+### Fixed
+- Use pip to install requests (Alpine py3-requests is for Python 3.12, base image has 3.13)
+
 ## [0.1.2] - 2026-01-14
 
 ### Fixed
