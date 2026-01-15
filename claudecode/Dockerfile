@@ -19,6 +19,7 @@ RUN apk add --no-cache \
     bash \
     curl \
     git \
+    github-cli \
     jq \
     nodejs \
     npm \

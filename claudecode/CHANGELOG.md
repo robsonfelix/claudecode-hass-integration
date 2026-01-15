@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.49] - 2026-01-15
+
+### Added
+- GitHub CLI (`gh`) for GitHub operations (PRs, issues, repos, etc.)
+
 ## [1.2.48] - 2026-01-15
 
 ### Changed
