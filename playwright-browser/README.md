@@ -34,5 +34,6 @@ Playwright/Chromium requires Ubuntu/Debian (glibc) to work properly. Home Assist
 
 ## Supported Architectures
 
-- amd64
-- aarch64 (ARM64)
+- amd64 (x86_64)
+
+Note: ARM64 support may be added in a future release.

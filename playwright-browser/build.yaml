@@ -1,5 +1,0 @@
-build_from:
-  amd64: mcr.microsoft.com/playwright:v1.50.0-noble
-  aarch64: mcr.microsoft.com/playwright:v1.50.0-noble
-args:
-  BUILD_ARCH: "${BUILD_ARCH}"
