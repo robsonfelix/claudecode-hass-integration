@@ -133,9 +133,20 @@ NGINX_PID=$!
 
 echo "[INFO] CDP endpoint ready at http://playwright-browser:${CDP_PORT}"
 
-# Wait for either process to exit
-wait -n $CHROME_PID $NGINX_PID
+# Give nginx a moment to start
+sleep 2
 
-# If we get here, one of them died - kill the other and exit
-kill $CHROME_PID $NGINX_PID 2>/dev/null || true
-exit 1
+# Monitor both processes
+while true; do
+    if ! kill -0 $CHROME_PID 2>/dev/null; then
+        echo "[ERROR] Chrome process exited!"
+        kill $NGINX_PID 2>/dev/null || true
+        exit 1
+    fi
+    if ! kill -0 $NGINX_PID 2>/dev/null; then
+        echo "[ERROR] nginx process exited!"
+        kill $CHROME_PID 2>/dev/null || true
+        exit 1
+    fi
+    sleep 5
+done

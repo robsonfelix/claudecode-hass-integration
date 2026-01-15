@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.9] - 2026-01-15
+
+### Fixed
+- Replace `wait -n` with proper process monitoring loop
+- Add sleep after nginx start and check both processes every 5 seconds
+- Better error reporting (shows which process exited)
+
 ## [0.1.8] - 2026-01-15
 
 ### Fixed
