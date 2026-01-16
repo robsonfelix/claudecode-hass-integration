@@ -37,7 +37,6 @@ RUN apk add --no-cache \
     ca-certificates \
     openssl \
     ripgrep \
-    unrar \
     p7zip \
     && update-ca-certificates
 

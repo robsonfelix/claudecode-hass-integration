@@ -2,10 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.55] - 2026-01-16
+
+### Fixed
+- Removed `unrar` package (not available in Alpine 3.21)
+- Use `7z x file.rar` instead for RAR extraction
+
 ## [1.2.54] - 2026-01-16
 
 ### Added
-- Archive tools: `unrar` for RAR extraction, `p7zip` for 7-Zip archives
+- Archive tools: `p7zip` for 7-Zip and RAR archives (use `7z` command)
 - Modbus tools: `mbpoll` command line Modbus master, `pymodbus` Python library
 - Useful for industrial automation and device communication tasks
 
