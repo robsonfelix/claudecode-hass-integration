@@ -39,6 +39,7 @@ RUN apk add --no-cache \
     ripgrep \
     p7zip \
     socat \
+    docker-cli \
     && update-ca-certificates
 
 # Install ttyd static binary (avoids libwebsockets issues)

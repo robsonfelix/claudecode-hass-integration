@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.60] - 2026-01-16
+
+### Added
+- Docker CLI (`docker` command) to use the Docker API
+
 ## [1.2.59] - 2026-01-16
 
 ### Added
